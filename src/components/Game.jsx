@@ -20,7 +20,7 @@ const ERROR_MESSAGES = {
     `"${word}" no empieza con "${letter.toUpperCase()}".`,
 };
 
-const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain }) => {
+const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) => {
   const [chain, setChain] = useState([]);
   const [feedback, setFeedback] = useState(NO_FEEDBACK);
   const [isValidating, setIsValidating] = useState(false);
@@ -28,7 +28,7 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain }) => {
   const hasStarted = chain.length > 0;
   const { secondsLeft, reset: resetTimer } = useCountdown(
     TURN_SECONDS,
-    hasStarted && !isValidating,
+    hasStarted && !isValidating && !isPaused,
   );
   const isGameOver = secondsLeft === 0;
 

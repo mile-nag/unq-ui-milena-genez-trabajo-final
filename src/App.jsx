@@ -3,12 +3,14 @@ import { DEFAULT_ALIAS } from "./utils/gameRules";
 import { addScore, getLastAlias, getLeaderboard, saveLastAlias } from "./storage/leaderboard";
 import Leaderboard from "./components/Leaderboard";
 import Game from "./components/Game";
+import RulesDialog from "./components/RulesDialog";
 import "./App.css";
 
 const App = () => {
   const [gameNumber, setGameNumber] = useState(1);
   const [leaderboard, setLeaderboard] = useState(getLeaderboard);
   const [lastAlias, setLastAlias] = useState(getLastAlias);
+  const [showRules, setShowRules] = useState(false);
 
   const handlePlayAgain = () => {
     setGameNumber((previousNumber) => previousNumber + 1);
@@ -32,6 +34,12 @@ const App = () => {
     <main className="container py-4">
       <h1 className="text-center mb-4">Palabras Encadenadas</h1>
 
+      <div className="text-end mb-2">
+        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setShowRules(true)}>
+          Ayuda: reglas
+        </button>
+      </div>
+
       <div className="row g-4">
         <div className="col-md-8">
           <Game
@@ -40,6 +48,7 @@ const App = () => {
             lastAlias={lastAlias}
             onSaveScore={handleSaveScore}
             onPlayAgain={handlePlayAgain}
+            isPaused={showRules}
           />
         </div>
 
@@ -47,6 +56,8 @@ const App = () => {
           <Leaderboard results={leaderboard} />
         </aside>
       </div>
+
+      {showRules && <RulesDialog onClose={() => setShowRules(false)} />}
     </main>
   );
 };
