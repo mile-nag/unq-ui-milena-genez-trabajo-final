@@ -13,18 +13,17 @@ const WordInput = ({ nextLetter, onSubmit, disabled = false }) => {
   }, [disabled]);
 
   const handleChange = (e) => {
-    setWord(e.target.value);
+    setWord(e.target.value.replace(/\s/g, ""));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const trimmedWord = word.trim();
-    if (trimmedWord === "") {
+    if (word === "") {
       return;
     }
 
-    const accepted = await onSubmit(trimmedWord);
+    const accepted = await onSubmit(word);
     if (accepted) {
       setWord("");
     }
@@ -55,7 +54,7 @@ const WordInput = ({ nextLetter, onSubmit, disabled = false }) => {
         <button
           type="submit"
           className="btn btn-primary btn-lg"
-          disabled={disabled || word.trim() === ""}
+          disabled={disabled || word === ""}
         >
           {disabled ? "Validando" : "Enviar"}
         </button>
