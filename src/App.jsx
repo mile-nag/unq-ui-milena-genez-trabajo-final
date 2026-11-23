@@ -6,6 +6,7 @@ import Scoreboard from "./components/Scoreboard";
 import WordInput from "./components/WordInput";
 import Feedback from "./components/Feedback";
 import WordChain from "./components/WordChain";
+import useCountdown from "./hooks/useCountdown";
 import "./App.css";
 
 const TURN_SECONDS = 15;
@@ -22,6 +23,13 @@ const App = () => {
   const [chain, setChain] = useState([]);
   const [feedback, setFeedback] = useState(NO_FEEDBACK);
   const [isValidating, setIsValidating] = useState(false);
+
+  const hasStarted = chain.length > 0;
+  const { secondsLeft, reset: resetTimer } = useCountdown(
+    TURN_SECONDS,
+    hasStarted && !isValidating,
+  );
+  const isGameOver = secondsLeft === 0;
 
   const score = chain.reduce((total, word) => total + word.length, 0);
   const lastWord = chain.at(-1);
@@ -53,6 +61,7 @@ const App = () => {
       }
 
       setChain((previousChain) => [...previousChain, word]);
+      resetTimer();
       setFeedback({
         message: `"${word}" suma ${word.length}`,
         type: "success",
@@ -71,16 +80,22 @@ const App = () => {
       <h1 className="text-center mb-4">Palabras Encadenadas</h1>
 
       <section className="d-flex justify-content-around align-items-center mb-4">
-        <Timer secondsLeft={TURN_SECONDS} />
+        <Timer secondsLeft={secondsLeft} />
         <Scoreboard score={score} wordCount={chain.length} />
       </section>
 
-      <WordInput
-        nextLetter={nextLetter}
-        onSubmit={handleWordSubmit}
-        disabled={isValidating}
-      />
+      {isGameOver ? (
+        <p className="">Se terminó el tiempo, sumaste {score} puntos </p>
+      ) : (
+        <WordInput
+          nextLetter={nextLetter}
+          onSubmit={handleWordSubmit}
+          disabled={isValidating}
+        />
+      )}
+
       <Feedback message={feedback.message} type={feedback.type} />
+
       <WordChain words={chain} />
     </main>
   );
