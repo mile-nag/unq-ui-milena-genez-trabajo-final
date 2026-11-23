@@ -1,12 +1,13 @@
-const ACCENTS = {
+const EQUIVALENCES = {
   á: "a",
   é: "e",
   í: "i",
   ó: "o",
   ú: "u",
+  ñ: "n",
 };
 
-const ONLY_LETTERS = /^[a-zñ]+$/;
+const ONLY_LETTERS = /^[a-z]+$/;
 
 export const WORD_ERRORS = {
   INVALID_CHARACTERS: "INVALID_CHARACTERS",
@@ -19,7 +20,7 @@ export const normalizeWord = (word) =>
     .trim()
     .toLowerCase()
     .normalize("NFC")
-    .replace(/[áéíóúü]/g, (letter) => ACCENTS[letter]);
+    .replace(/[áéíóúñ]/g, (letter) => EQUIVALENCES[letter]);
 
 export const lastLetter = (word) => normalizeWord(word).at(-1);
 
