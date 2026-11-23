@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
 const useCountdown = (seconds, isRunning) => {
-  
-  
   const [secondsLeft, setSecondsLeft] = useState(seconds);
 
   useEffect(() => {
@@ -14,8 +12,6 @@ const useCountdown = (seconds, isRunning) => {
       setSecondsLeft((previousSeconds) => previousSeconds - 1);
     }, 1000);
 
-    
-    // si algo cambia -- se cancela el tic pend -- ver
     return () => clearTimeout(timeoutId);
   }, [isRunning, secondsLeft]);
 

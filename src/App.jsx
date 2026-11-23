@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { validateWord } from "./services/api";
 import { lastLetter, validateWordLocal, WORD_ERRORS } from "./utils/words";
+import { calculateScore, TURN_SECONDS } from "./utils/gameRules";
 import Timer from "./components/Timer";
 import Scoreboard from "./components/Scoreboard";
 import WordInput from "./components/WordInput";
 import Feedback from "./components/Feedback";
 import WordChain from "./components/WordChain";
 import useCountdown from "./hooks/useCountdown";
+import GameOver from "./components/GameOver";
 import "./App.css";
 
-const TURN_SECONDS = 15;
 const NO_FEEDBACK = { message: "", type: "info" };
 const ERROR_MESSAGES = {
   [WORD_ERRORS.INVALID_CHARACTERS]: () =>
@@ -31,7 +32,7 @@ const App = () => {
   );
   const isGameOver = secondsLeft === 0;
 
-  const score = chain.reduce((total, word) => total + word.length, 0);
+  const score = calculateScore(chain);
   const lastWord = chain.at(-1);
   const nextLetter = lastWord ? lastLetter(lastWord) : null;
 
@@ -75,6 +76,12 @@ const App = () => {
     }
   };
 
+  const handlePlayAgain = () => {
+    setChain([]);
+    setFeedback(NO_FEEDBACK);
+    resetTimer();
+  };
+
   return (
     <main className="container py-4">
       <h1 className="text-center mb-4">Palabras Encadenadas</h1>
@@ -85,16 +92,21 @@ const App = () => {
       </section>
 
       {isGameOver ? (
-        <p className="">Se terminó el tiempo, sumaste {score} puntos </p>
+        <GameOver
+          wordCount={chain.length}
+          score={score}
+          onPlayAgain={handlePlayAgain}
+        ></GameOver>
       ) : (
-        <WordInput
-          nextLetter={nextLetter}
-          onSubmit={handleWordSubmit}
-          disabled={isValidating}
-        />
+        <div>
+          <WordInput
+            nextLetter={nextLetter}
+            onSubmit={handleWordSubmit}
+            disabled={isValidating}
+          />
+          <Feedback message={feedback.message} type={feedback.type} />
+        </div>
       )}
-
-      <Feedback message={feedback.message} type={feedback.type} />
 
       <WordChain words={chain} />
     </main>
