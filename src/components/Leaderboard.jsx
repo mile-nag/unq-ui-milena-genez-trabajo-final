@@ -9,11 +9,11 @@ const Leaderboard = ({ results }) => {
       <ol>
         {results.map((result) => (
           <li key={result.date} className="d-flex">
-            <span>{result.alias}</span>
-            <span>{result.score} puntos</span>
+            <span>{result.alias}{" "}</span>
+            <span>{" "}{result.score} puntos </span>
             <span>
-              {result.wordCount} 
-              {result.wordCount === 1 ? "palabra" : "palabras"}
+              {result.wordCount}{" "}
+              {result.wordCount === 1 ? " palabra" : " palabras"}
             </span>
           </li>
         ))}
