@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { validateWord } from "./services/api";
+import { lastLetter, validateWordLocal, WORD_ERRORS } from "./utils/words";
 import Timer from "./components/Timer";
 import Scoreboard from "./components/Scoreboard";
 import WordInput from "./components/WordInput";
@@ -9,6 +10,13 @@ import "./App.css";
 
 const TURN_SECONDS = 15;
 const NO_FEEDBACK = { message: "", type: "info" };
+const ERROR_MESSAGES = {
+  [WORD_ERRORS.INVALID_CHARACTERS]: () =>
+    "Usá solo letras, sin espacios, números ni signos",
+  [WORD_ERRORS.ALREADY_USED]: (word) => `"${word}" ya fue utilizada!`,
+  [WORD_ERRORS.BROKEN_CHAIN]: (word, letter) =>
+    `"${word}" no empieza con "${letter.toUpperCase()}"`,
+};
 
 const App = () => {
   const [chain, setChain] = useState([]);
@@ -17,9 +25,19 @@ const App = () => {
 
   const score = chain.reduce((total, word) => total + word.length, 0);
   const lastWord = chain.at(-1);
-  const nextLetter = lastWord ? lastWord.at(-1) : null;
+  const nextLetter = lastWord ? lastLetter(lastWord) : null;
 
   const handleWordSubmit = async (word) => {
+    const localError = validateWordLocal(word, chain);
+
+    if (localError) {
+      setFeedback({
+        message: ERROR_MESSAGES[localError](word, nextLetter),
+        type: "error",
+      });
+      return false;
+    }
+
     setIsValidating(true);
     setFeedback(NO_FEEDBACK);
 
@@ -27,12 +45,18 @@ const App = () => {
       const exists = await validateWord(word);
 
       if (!exists) {
-        setFeedback({ message: `"${word}" no existe en el diccionario`, type: "error" });
+        setFeedback({
+          message: `"${word}" no existe en el diccionario`,
+          type: "error",
+        });
         return false;
       }
 
       setChain((previousChain) => [...previousChain, word]);
-      setFeedback({ message: `"${word}" suma ${word.length}`, type: "success" });
+      setFeedback({
+        message: `"${word}" suma ${word.length}`,
+        type: "success",
+      });
       return true;
     } catch {
       setFeedback({ message: "No se pudo validar la palabra", type: "error" });
@@ -51,7 +75,11 @@ const App = () => {
         <Scoreboard score={score} wordCount={chain.length} />
       </section>
 
-      <WordInput nextLetter={nextLetter} onSubmit={handleWordSubmit} disabled={isValidating} />
+      <WordInput
+        nextLetter={nextLetter}
+        onSubmit={handleWordSubmit}
+        disabled={isValidating}
+      />
       <Feedback message={feedback.message} type={feedback.type} />
       <WordChain words={chain} />
     </main>
