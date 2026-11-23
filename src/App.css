@@ -1,0 +1,80 @@
+.desktop {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.desktop-content {
+  flex: 1;
+  max-width: 1600px;
+}
+
+.taskbar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.taskbar-start {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+.taskbar-item {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.feedback-slot {
+  min-height: 3.5rem;
+  margin: 1rem 0;
+}
+
+/* timer */
+.timer {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.timer-label {
+  font-size: 12px;
+}
+
+.timer-seconds {
+  font: bold 14px var(--font-ui);
+}
+
+.timer-bar {
+  display: flex;/*bootstrap*/
+  gap: 3px;
+  padding: 4px;
+}
+
+.timer-block {
+  flex: 1;
+  height: 22px;
+  background: color-mix(in srgb, var(--color-screen) 85%, var(--color-phosphor));
+}
+
+.timer-block.is-on {
+  background: var(--color-phosphor);
+}
+
+.timer.is-running-out .timer-seconds {
+  color: #9b1050;
+}
+
+.timer.is-running-out .timer-block.is-on {
+  background: #ff8fc8;
+}

@@ -1,0 +1,127 @@
+:root {
+  --color-desktop: #553b68;
+  --color-chrome: #dccfe3;
+  --color-titlebar: #8c74c2;
+  --color-titlebar-text: #31213c;
+  --bevel-light: #fcfcf5;
+  --bevel-mid: #f3e6f8;
+  --bevel-shadow: #b9a3ed;
+  --bevel-dark: #3d3046;
+  --color-screen: #241c2b;
+  --color-phosphor: #ceb4f3;
+  --font-ui: Tahoma, Verdana, sans-serif;
+  --font-screen: "VT323", monospace;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: var(--color-desktop);
+  font-family: var(--font-ui);
+}
+
+:focus-visible {
+  outline: 1px dotted #000000;
+  outline-offset: -4px;
+}
+
+.win {
+  background: var(--color-chrome);
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: inset -1px -1px var(--bevel-shadow), inset 1px 1px var(--bevel-mid);
+}
+
+.win-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 4px 4px 8px;
+  background: linear-gradient(90deg, var(--color-titlebar), color-mix(in srgb, var(--color-titlebar) 70%, #ffffff));
+  color: var(--color-titlebar-text);
+  font: bold 14px var(--font-ui);
+}
+
+.win-title-btns {
+  display: flex;
+  gap: 2px;
+}
+
+.win-title-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 18px;
+  box-sizing: border-box;
+  background: var(--color-chrome);
+  color: #000000;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  font: bold 11px var(--font-ui);
+}
+
+/* menu */
+.win-menubar {
+  display: flex;
+  gap: 2px;
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--bevel-shadow);
+}
+
+.win-menu-btn {
+  min-height: 32px;
+  padding: 0 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #000000;
+  font: 13px var(--font-ui);
+  cursor: pointer;
+}
+
+.win-menu-btn:hover {
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+}
+
+.win-body {
+  padding: 14px;
+}
+
+.sunken {
+  border: 2px solid;
+  border-color: var(--bevel-shadow) var(--bevel-light) var(--bevel-light) var(--bevel-shadow);
+  box-shadow: inset 1px 1px var(--bevel-dark);
+}
+
+.btn98 {
+  min-height: 44px;
+  padding: 0 20px;
+  background: var(--color-chrome);
+  color: #000000;
+  border: 2px solid;
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  box-shadow: inset -1px -1px var(--bevel-shadow);
+  font: bold 15px var(--font-ui);
+  cursor: pointer;
+}
+
+.btn98:active:not(:disabled) {
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  box-shadow: inset 1px 1px var(--bevel-shadow);
+}
+
+.btn98:disabled {
+  color: var(--bevel-shadow);
+  text-shadow: 1px 1px var(--bevel-light);
+  cursor: default;
+}
+
+.crt {
+  background-color: var(--color-screen);
+  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px);
+  color: var(--color-phosphor);
+  font-family: var(--font-screen);
+  text-shadow: 0 0 6px var(--color-phosphor);
+}
+

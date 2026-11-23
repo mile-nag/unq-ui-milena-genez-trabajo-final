@@ -5,6 +5,7 @@ import Leaderboard from "./components/Leaderboard";
 import Game from "./components/Game";
 import RulesDialog from "./components/RulesDialog";
 import "./App.css";
+import Window from "./components/Window";
 
 const App = () => {
   const [gameNumber, setGameNumber] = useState(1);
@@ -31,34 +32,51 @@ const App = () => {
   };
 
   return (
-    <main className="container py-4">
-      <h1 className="text-center mb-4">Palabras Encadenadas</h1>
+    <div className="desktop">
+      <main className="container-fluid desktop-content py-4">
+        <h1 className="visually-hidden">Palabras Encadenadas</h1>
 
-      <div className="text-end mb-2">
-        <button type="button" className="btn btn-outline-secondary btn-sm" onClick={() => setShowRules(true)}>
-          Ayuda: reglas
-        </button>
-      </div>
+        <div className="row g-4 align-items-start">
+          <div className="col-lg-8">
+            <Window
+              title="PALABRAS"
+              menu={
+                <button
+                  type="button"
+                  className="win-menu-btn"
+                  onClick={() => setShowRules(true)}
+                >
+                  <u>A</u>yuda: reglas
+                </button>
+              }
+            >
+              <Game
+                key={gameNumber}
+                leaderboard={leaderboard}
+                lastAlias={lastAlias}
+                onSaveScore={handleSaveScore}
+                onPlayAgain={handlePlayAgain}
+                isPaused={showRules}
+              />
+            </Window>
+          </div>
 
-      <div className="row g-4">
-        <div className="col-md-8">
-          <Game
-            key={gameNumber}
-            leaderboard={leaderboard}
-            lastAlias={lastAlias}
-            onSaveScore={handleSaveScore}
-            onPlayAgain={handlePlayAgain}
-            isPaused={showRules}
-          />
+          <div className="col-lg-4">
+            <Window title="TOP_10">
+              <Leaderboard results={leaderboard} />
+            </Window>
+          </div>
         </div>
+      </main>
 
-        <aside className="col-md-4">
-          <Leaderboard results={leaderboard} />
-        </aside>
-      </div>
+      <footer className="win taskbar" aria-hidden="true">
+        <span className="btn98 taskbar-start">Inicio</span>
+        <span className="sunken taskbar-item">PALABRAS</span>
+        <span className="win taskbar-item">TOP_10</span>
+      </footer>
 
       {showRules && <RulesDialog onClose={() => setShowRules(false)} />}
-    </main>
+    </div>
   );
 };
 

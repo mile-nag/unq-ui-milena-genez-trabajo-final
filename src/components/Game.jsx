@@ -84,7 +84,7 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
   return (
     <>
       <section className="d-flex justify-content-around align-items-center mb-4">
-        <Timer secondsLeft={secondsLeft} />
+        <Timer secondsLeft={secondsLeft} totalSeconds={TURN_SECONDS} />
         <Scoreboard score={score} wordCount={chain.length} />
       </section>
 
