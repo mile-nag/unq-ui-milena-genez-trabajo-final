@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 const MAX_WORD_LENGTH = 30;
 
-const WordInput = ({ nextLetter, onSubmit, disabled = false }) => {
+const WordInput = ({ nextLetter, onSubmit, disabled = false, hasError = false }) => {
   const [word, setWord] = useState("");
 
   const inputRef = useRef(null);
@@ -41,7 +41,7 @@ const WordInput = ({ nextLetter, onSubmit, disabled = false }) => {
         )}
       </label>
       <div className="d-flex gap-2">
-        <div className="word-field sunken crt">
+        <div className={`word-field sunken crt ${hasError ? "has-error" : ""}`}>
           <span className="word-prompt" aria-hidden="true">
             &gt;
           </span>
@@ -58,6 +58,8 @@ const WordInput = ({ nextLetter, onSubmit, disabled = false }) => {
             spellCheck={false}
             disabled={disabled}
             aria-label="Palabra"
+            aria-invalid={hasError}
+            aria-describedby="word-feedback"
           />
         </div>
         <button

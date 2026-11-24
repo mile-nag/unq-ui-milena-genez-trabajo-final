@@ -13,6 +13,11 @@
   --font-screen: "VT323", monospace;
   --font-size-ui: 1.2rem;
   --font-size-ui-small: 1rem;
+  --color-danger: #9b1050;
+  --color-success: #1e6b45;
+  --color-alert: #ff8fc8;
+  --color-sky-mid: #5f3e70;
+  --color-sky-low: #b567a2;
 }
 
 body {

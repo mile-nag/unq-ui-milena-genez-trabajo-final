@@ -89,7 +89,7 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
         <Scoreboard score={score} wordCount={chain.length} bestScore={bestScore} />
       </section>
 
-      <WordChain words={chain} />
+      <WordChain words={chain} user={lastAlias}/>
 
       {isGameOver ? (
         <GameOver
@@ -106,6 +106,7 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
             nextLetter={nextLetter}
             onSubmit={handleWordSubmit}
             disabled={isValidating}
+            hasError={feedback.type === "error"}
           />
           <Feedback message={feedback.message} type={feedback.type} />
         </>

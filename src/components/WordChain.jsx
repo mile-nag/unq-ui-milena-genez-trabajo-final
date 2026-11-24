@@ -1,16 +1,19 @@
-const WordChain = ({ words }) => {
+const WordChain = ({ words, user }) => {
+  const promptUser = user ? user.toLowerCase() : "user";
+  
   return (
     <section
       className="chain-screen sunken crt"
       aria-label="Cadena de palabras"
     >
       <p className="chain-header" aria-hidden="true">
-        C:\PALABRAS&gt; cadena
+        <span className="prompt-user">{promptUser}@palabras</span>:
+        <span className="prompt-path">~</span>$ cat cadena.txt
       </p>
 
       {words.length === 0 ? (
         <p className="chain-empty">
-          Todavía no hay palabras. ¡Escribí la primera!
+          # todavía no hay palabras. ¡escribí la primera!
         </p>
       ) : (
         <ol className="chain-list">

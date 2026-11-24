@@ -18,42 +18,52 @@ const RulesDialog = ({ onClose }) => {
     <div className="modal d-block bg-dark bg-opacity-50" onClick={onClose}>
       <div className="modal-dialog modal-dialog-centered">
         <section
-          className="modal-content"
+          className="win rules-dialog"
           role="dialog"
           aria-modal="true"
           aria-labelledby="rules-title"
           onClick={(e) => e.stopPropagation()}
           onKeyDown={handleKeyDown}
         >
-          <div className="modal-header">
-            <h2 id="rules-title" className="modal-title h5">
-              Cómo se juega
+          <div className="win-titlebar">
+            <h2 id="rules-title" className="rules-title">
+              Ayuda: cómo se juega
             </h2>
-          </div>
-          <div className="modal-body">
-            <ol className="mb-0">
-              <li>Escribí cualquier palabra para empezar.</li>
-              <li>
-                Cada palabra nueva tiene que empezar con la última letra de la
-                anterior.
-              </li>
-              <li>No se pueden repetir palabras.</li>
-              <li>Cada letra suma 1 punto.</li>
-              <li>
-                Tenés {TURN_SECONDS} segundos por turno. Cada palabra válida
-                reinicia el tiempo.
-              </li>
-            </ol>
-          </div>
-          <div className="modal-footer">
             <button
-              ref={closeButtonRef}
               type="button"
-              className="btn btn-primary"
+              className="win-title-btn"
+              aria-label="Cerrar"
               onClick={onClose}
             >
-              Entendido
+              x
             </button>
+          </div>
+          <div className="win-body">
+            <div className="rules-screen sunken crt">
+              <ol className="rules-list">
+                <li>Escribí cualquier palabra para empezar.</li>
+                <li>
+                  Cada palabra nueva tiene que empezar con la última letra de la
+                  anterior.
+                </li>
+                <li>No se pueden repetir palabras.</li>
+                <li>Cada letra suma 1 punto.</li>
+                <li>
+                  Tenés {TURN_SECONDS} segundos por turno. Cada palabra válida
+                  reinicia el tiempo.
+                </li>
+              </ol>
+            </div>
+            <div className="d-flex justify-content-end mt-3">
+              <button
+                ref={closeButtonRef}
+                type="button"
+                className="btn98"
+                onClick={onClose}
+              >
+                Entendido
+              </button>
+            </div>
           </div>
         </section>
       </div>
