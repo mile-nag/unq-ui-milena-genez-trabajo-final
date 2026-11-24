@@ -1,23 +1,34 @@
-const Leaderboard = ({ results }) => {
-  if (results.length === 0) {
-    return <p>Todavia no hay partidas guardadas</p>;
-  }
+import { formatScore } from "../utils/format";
 
+const Leaderboard = ({ results }) => {
   return (
-    <div>
-      <h2>Mejores puntajes</h2>
-      <ol>
-        {results.map((result) => (
-          <li key={result.date} className="d-flex">
-            <span>{result.alias}{" "}</span>
-            <span>{" "}{result.score} puntos </span>
-            <span>
-              {result.wordCount}{" "}
-              {result.wordCount === 1 ? " palabra" : " palabras"}
-            </span>
-          </li>
-        ))}
-      </ol>
+    <div className="leaderboard sunken crt">
+      <h2 className="leaderboard-title">Mejores puntajes</h2>
+
+      {results.length === 0 ? (
+        <p className="leaderboard-empty">Todavía no hay partidas guardadas.</p>
+      ) : (
+        <table className="leaderboard-table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Alias</th>
+              <th scope="col" className="text-end">Palabras</th>
+              <th scope="col" className="text-end">Puntaje</th>
+            </tr>
+          </thead>
+          <tbody>
+            {results.map((result, index) => (
+              <tr key={result.date}>
+                <td>{String(index + 1).padStart(2, "0")}</td>
+                <td>{result.alias}</td>
+                <td className="text-end">{result.wordCount}</td>
+                <td className="text-end">{formatScore(result.score)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

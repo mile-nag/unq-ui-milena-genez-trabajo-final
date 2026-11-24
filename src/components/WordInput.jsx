@@ -31,39 +31,43 @@ const WordInput = ({ nextLetter, onSubmit, disabled = false }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="d-flex">
-        <input
-          ref={inputRef}
-          type="text"
-          className="form-control form-control-lg"
-          placeholder={
-            nextLetter
-              ? `Empezá con "${nextLetter.toUpperCase()}"`
-              : "Escribí cualquier palabra"
-          }
-          value={word}
-          onChange={handleChange}
-          maxLength={MAX_WORD_LENGTH}
-          autoComplete="off"
-          autoCapitalize="none"
-          spellCheck={false}
-          autoFocus
-          disabled={disabled}
-          aria-label="Palabra"
-        />
+      <label htmlFor="word-input" className="word-label">
+        {nextLetter ? (
+          <>
+            Próxima letra: <strong>{nextLetter.toUpperCase()}</strong>
+          </>
+        ) : (
+          "Escribí cualquier palabra para empezar..."
+        )}
+      </label>
+      <div className="d-flex gap-2">
+        <div className="word-field sunken crt">
+          <span className="word-prompt" aria-hidden="true">
+            &gt;
+          </span>
+          <input
+            ref={inputRef}
+            id="word-input"
+            type="text"
+            className="word-input"
+            value={word}
+            onChange={handleChange}
+            maxLength={MAX_WORD_LENGTH}
+            autoComplete="off"
+            autoCapitalize="none"
+            spellCheck={false}
+            disabled={disabled}
+            aria-label="Palabra"
+          />
+        </div>
         <button
           type="submit"
-          className="btn btn-primary btn-lg"
+          className="btn98"
           disabled={disabled || word === ""}
         >
           {disabled ? "Validando" : "Enviar"}
         </button>
       </div>
-      {nextLetter && (
-        <div className="form-text">
-          Próxima letra: <strong>{nextLetter.toUpperCase()}</strong>
-        </div>
-      )}
     </form>
   );
 };

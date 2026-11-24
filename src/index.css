@@ -5,12 +5,14 @@
   --color-titlebar-text: #31213c;
   --bevel-light: #fcfcf5;
   --bevel-mid: #f3e6f8;
-  --bevel-shadow: #b9a3ed;
+  --bevel-shadow: #8670b8;
   --bevel-dark: #3d3046;
   --color-screen: #241c2b;
   --color-phosphor: #ceb4f3;
-  --font-ui: Tahoma, Verdana, sans-serif;
+  --font-ui: "WIN95FA", Tahoma, Verdana, sans-serif;
   --font-screen: "VT323", monospace;
+  --font-size-ui: 1.2rem;
+  --font-size-ui-small: 1rem;
 }
 
 body {
@@ -18,6 +20,8 @@ body {
   min-height: 100vh;
   background-color: var(--color-desktop);
   font-family: var(--font-ui);
+  font-size: var(--font-size-ui);
+  font-synthesis: none;
 }
 
 :focus-visible {
@@ -25,11 +29,18 @@ body {
   outline-offset: -4px;
 }
 
+.crt :focus-visible {
+  outline-color: var(--color-phosphor);
+}
+
 .win {
   background: var(--color-chrome);
   border: 2px solid;
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
-  box-shadow: inset -1px -1px var(--bevel-shadow), inset 1px 1px var(--bevel-mid);
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark)
+    var(--bevel-light);
+  box-shadow:
+    inset -1px -1px var(--bevel-shadow),
+    inset 1px 1px var(--bevel-mid);
 }
 
 .win-titlebar {
@@ -38,7 +49,11 @@ body {
   justify-content: space-between;
   gap: 8px;
   padding: 4px 4px 4px 8px;
-  background: linear-gradient(90deg, var(--color-titlebar), color-mix(in srgb, var(--color-titlebar) 70%, #ffffff));
+  background: linear-gradient(
+    90deg,
+    var(--color-titlebar),
+    color-mix(in srgb, var(--color-titlebar) 70%, #ffffff)
+  );
   color: var(--color-titlebar-text);
   font: bold 14px var(--font-ui);
 }
@@ -58,7 +73,8 @@ body {
   background: var(--color-chrome);
   color: #000000;
   border: 2px solid;
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark)
+    var(--bevel-light);
   font: bold 11px var(--font-ui);
 }
 
@@ -76,12 +92,13 @@ body {
   background: transparent;
   border: 1px solid transparent;
   color: #000000;
-  font: 13px var(--font-ui);
+  font: var(--font-size-ui-small) var(--font-ui);
   cursor: pointer;
 }
 
 .win-menu-btn:hover {
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark)
+    var(--bevel-light);
 }
 
 .win-body {
@@ -90,7 +107,8 @@ body {
 
 .sunken {
   border: 2px solid;
-  border-color: var(--bevel-shadow) var(--bevel-light) var(--bevel-light) var(--bevel-shadow);
+  border-color: var(--bevel-shadow) var(--bevel-light) var(--bevel-light)
+    var(--bevel-shadow);
   box-shadow: inset 1px 1px var(--bevel-dark);
 }
 
@@ -100,14 +118,16 @@ body {
   background: var(--color-chrome);
   color: #000000;
   border: 2px solid;
-  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark) var(--bevel-light);
+  border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark)
+    var(--bevel-light);
   box-shadow: inset -1px -1px var(--bevel-shadow);
   font: bold 15px var(--font-ui);
   cursor: pointer;
 }
 
 .btn98:active:not(:disabled) {
-  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light) var(--bevel-dark);
+  border-color: var(--bevel-dark) var(--bevel-light) var(--bevel-light)
+    var(--bevel-dark);
   box-shadow: inset 1px 1px var(--bevel-shadow);
 }
 
@@ -119,9 +139,11 @@ body {
 
 .crt {
   background-color: var(--color-screen);
-  background-image: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.35) 0 1px, transparent 1px 3px);
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.35) 0 1px,
+    transparent 1px 3px
+  );
   color: var(--color-phosphor);
   font-family: var(--font-screen);
-  text-shadow: 0 0 6px var(--color-phosphor);
 }
-

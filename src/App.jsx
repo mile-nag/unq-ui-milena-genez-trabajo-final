@@ -39,7 +39,7 @@ const App = () => {
         <div className="row g-4 align-items-start">
           <div className="col-lg-8">
             <Window
-              title="PALABRAS"
+              title="PALABRAS_ENCADENADAS.EXE"
               menu={
                 <button
                   type="button"
@@ -62,7 +62,7 @@ const App = () => {
           </div>
 
           <div className="col-lg-4">
-            <Window title="TOP_10">
+            <Window title="TOP_10.EXE">
               <Leaderboard results={leaderboard} />
             </Window>
           </div>

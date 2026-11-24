@@ -36,6 +36,7 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
   const lastWord = chain.at(-1);
   const nextLetter = lastWord ? lastLetter(lastWord) : null;
   const qualifies = qualifiesForLeaderboard(score, leaderboard);
+  const bestScore = leaderboard[0]?.score ?? 0;
 
   const handleWordSubmit = async (word) => {
     const localError = validateWordLocal(word, chain);
@@ -65,7 +66,7 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
       setChain((previousChain) => [...previousChain, word]);
       resetTimer();
       setFeedback({
-        message: `"${word}" suma ${word.length} puntos`,
+        message: `"${word}" suma ${word.length} ${word.length === 1 ? "punto" : "puntos"}.`,
         type: "success",
       });
       return true;
@@ -83,10 +84,12 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
 
   return (
     <>
-      <section className="d-flex justify-content-around align-items-center mb-4">
+      <section className="d-flex flex-wrap gap-3 align-items-stretch mb-3">        
         <Timer secondsLeft={secondsLeft} totalSeconds={TURN_SECONDS} />
-        <Scoreboard score={score} wordCount={chain.length} />
+        <Scoreboard score={score} wordCount={chain.length} bestScore={bestScore} />
       </section>
+
+      <WordChain words={chain} />
 
       {isGameOver ? (
         <GameOver
@@ -107,8 +110,6 @@ const Game = ({ leaderboard, lastAlias, onSaveScore, onPlayAgain, isPaused }) =>
           <Feedback message={feedback.message} type={feedback.type} />
         </>
       )}
-
-      <WordChain words={chain} />
     </>
   );
 };

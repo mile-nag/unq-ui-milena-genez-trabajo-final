@@ -1,15 +1,15 @@
-const ALERT_CLASSES = {
-  error: "alert-danger",
-  success: "alert-success",
-  info: "alert-info",
+const PREFIXES = {
+  error: "ERR>",
+  success: "OK>",
+  info: ">",
 };
 
 const Feedback = ({ message, type = "info" }) => {
   return (
-    <div>
+    <div className="feedback-slot">
       {message && (
-        <div className={`alert ${ALERT_CLASSES[type]} py-2 mb-0`} role="alert">
-          {message}
+        <div className={`feedback sunken feedback-${type}`} role="alert">
+          <span aria-hidden="true">{PREFIXES[type]}</span> {message}
         </div>
       )}
     </div>
