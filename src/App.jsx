@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DEFAULT_ALIAS } from "./utils/gameRules";
+import { DEFAULT_ALIAS, LEADERBOARD_SIZE } from "./utils/gameRules";
 import { addScore, getLastAlias, getLeaderboard, saveLastAlias } from "./storage/leaderboard";
 import Leaderboard from "./components/Leaderboard";
 import Game from "./components/Game";
@@ -12,6 +12,11 @@ const App = () => {
   const [leaderboard, setLeaderboard] = useState(getLeaderboard);
   const [lastAlias, setLastAlias] = useState(getLastAlias);
   const [showRules, setShowRules] = useState(false);
+  const [hiddenWindows, setHiddenWindows] = useState({ game: false, ranking: false });
+
+  const toggleWindow = (name) => {
+    setHiddenWindows((previous) => ({ ...previous, [name]: !previous[name] }));
+  };
 
   const handlePlayAgain = () => {
     setGameNumber((previousNumber) => previousNumber + 1);
@@ -41,13 +46,14 @@ const App = () => {
             <Window
               title="PALABRAS_ENCADENADAS.EXE"
               menu={
-                <button
-                  type="button"
-                  className="win-menu-btn"
-                  onClick={() => setShowRules(true)}
-                >
-                  <u>A</u>yuda: reglas
-                </button>
+                <>
+                  <button type="button" className="win-menu-btn" onClick={handlePlayAgain}>
+                    <u>J</u>uego nuevo
+                  </button>
+                  <button type="button" className="win-menu-btn" onClick={() => setShowRules(true)}>
+                    <u>A</u>yuda: reglas
+                  </button>
+                </>
               }
             >
               <Game
@@ -56,23 +62,35 @@ const App = () => {
                 lastAlias={lastAlias}
                 onSaveScore={handleSaveScore}
                 onPlayAgain={handlePlayAgain}
-                isPaused={showRules}
+                isPaused={showRules || hiddenWindows.game}
               />
             </Window>
           </div>
 
-          <div className="col-lg-4">
-            <Window title="TOP_10.EXE">
-              <Leaderboard results={leaderboard} />
+          <div className="col-lg-4" hidden={hiddenWindows.ranking}>
+            <Window
+              title="TOP_10.EXE"
+              onMinimize={() => toggleWindow("ranking")}
+            >
+              <Leaderboard results={leaderboard} size={LEADERBOARD_SIZE} />
             </Window>
           </div>
         </div>
       </main>
 
-      <footer className="win taskbar" aria-hidden="true">
-        <span className="btn98 taskbar-start">Inicio</span>
+      <footer className="win taskbar">
+        <span className="btn98 taskbar-start" aria-hidden="true">
+          Inicio
+        </span>
         <span className="sunken taskbar-item">PALABRAS</span>
-        <span className="win taskbar-item">TOP_10</span>
+        <button
+          type="button"
+          className={`taskbar-item ${hiddenWindows.ranking ? "win" : "sunken"}`}
+          aria-pressed={!hiddenWindows.ranking}
+          onClick={() => toggleWindow("ranking")}
+        >
+          TOP_10
+        </button>
       </footer>
 
       {showRules && <RulesDialog onClose={() => setShowRules(false)} />}

@@ -246,6 +246,9 @@
 
 .game-over {
   margin-top: 12px;
+}
+
+.game-over-screen {
   padding: 24px 16px;
   display: flex;
   flex-direction: column;
@@ -257,6 +260,13 @@
 .game-over p {
   margin: 0;
   font-size: 24px;
+}
+
+.game-over-actions {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
 }
 
 .game-over-title {
@@ -285,7 +295,7 @@
 
 .alias-input {
   --slot: 1.4ch;
-  width: calc(4 * var(--slot));
+  width: calc(3 * var(--slot));
   padding: 0 0 6px;
   border: 0;
   outline: none;
@@ -368,11 +378,6 @@
   flex-direction: column;
   gap: 8px;
   font-size: 22px;
-}
-
-button.win-title-btn {
-  padding: 0;
-  cursor: pointer;
 }
 
 .word-field.has-error {

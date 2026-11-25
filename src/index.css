@@ -81,6 +81,41 @@ body {
   border-color: var(--bevel-light) var(--bevel-dark) var(--bevel-dark)
     var(--bevel-light);
   font: bold 11px var(--font-ui);
+  position: relative;
+  cursor: not-allowed;
+}
+
+button.win-title-btn {
+  padding: 0;
+  cursor: pointer;
+}
+
+
+.win-title-btn:disabled {
+  color: var(--bevel-shadow);
+  text-shadow: 1px 1px var(--bevel-light);
+  pointer-events: none;
+}
+
+.win-title-disabled {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  cursor: not-allowed;
+}
+
+.win-title-disabled:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 10;
+  padding: 2px 6px;
+  background: #ffffe1;
+  border: 1px solid #000000;
+  color: #000000;
+  font: var(--font-size-ui-small) var(--font-ui);
+  white-space: nowrap;
 }
 
 /* menu */
